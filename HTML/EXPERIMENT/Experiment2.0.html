@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Innovations - About Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles & CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb; /* HEX */
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f97316;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --text: #334155;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.9), rgba(55, 125, 253, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%232563eb" width="100" height="100"/><path fill="%231e293b" opacity="0.2" d="M0 0L100 100M100 0L0 100" stroke-width="0.5"/></svg>');
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Section Styles */
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+        
+        /* Element Selector */
+        p {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+        
+        /* Class Selector */
+        .lead {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        /* ID Selector */
+        #mission {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 5px solid var(--secondary);
+        }
+        
+        /* Attribute Selector */
+        a[target="_blank"] {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        a[target="_blank"]:hover {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        /* Pseudo-class Selector */
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        /* Pseudo-element Selector */
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 4px;
+            background-color: var(--accent);
+            margin-top: 8px;
+            border-radius: 2px;
+        }
+        
+        /* Team Styles */
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .member {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid var(--primary);
+        }
+        
+        .member h3 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .member small {
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        /* Values List */
+        .values {
+            list-style: none;
+            margin: 25px 0;
+        }
+        
+        .values li {
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            background-color: rgba(37, 99, 235, 0.08);
+            border-radius: 8px;
+            position: relative;
+            padding-left: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .values li:hover {
+            background-color: rgba(37, 99, 235, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .values li::before {
+            content: "✓";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 26px;
+            height: 26px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Movies List */
+        .movies-section {
+            background: linear-gradient(to right, rgba(249, 115, 22, 0.05), rgba(37, 99, 235, 0.05));
+        }
+        
+        .movies {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .movies li {
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .movies li:hover {
+            transform: translateX(5px);
+        }
+        
+        /* Favorite movie styling using class selector */
+        .favorite {
+            background-color: rgba(255, 193, 7, 0.15) !important;
+            border-left: 4px solid #ffc107 !important;
+            font-weight: 600;
+            color: #856404;
+            order: -1; /* Move favorite to top */
+        }
+        
+        /* Cities List */
+        .cities {
+            list-style: none;
+            counter-reset: city-counter;
+            margin: 25px 0;
+        }
+        
+        .cities li {
+            counter-increment: city-counter;
+            padding: 18px 20px;
+            margin-bottom: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: relative;
+            padding-left: 70px;
+            transition: all 0.3s ease;
+        }
+        
+        .cities li:hover {
+            transform: translateX(5px);
+        }
+        
+        .cities li::before {
+            content: counter(city-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        /* Custom random CSS for cities */
+        .cities li:nth-child(odd) {
+            background-color: rgba(37, 99, 235, 0.05);
+            border-left: 4px solid #2563eb;
+        }
+        
+        .cities li:nth-child(even) {
+            background-color: rgba(16, 185, 129, 0.05);
+            border-left: 4px solid #10b981;
+        }
+        
+        .cities li:first-child {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+        }
+        
+        .cities li:last-child {
+            background-color: rgba(249, 115, 22, 0.1);
+            border-left: 4px solid #f97316;
+        }
+        
+        /* CTA Section */
+        .cta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
+            color: white;
+        }
+        
+        .cta-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .cta h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            background-color: var(--dark);
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .team {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>About Nexus Innovations</h1>
+            <p>Pioneering the future of technology with cutting-edge solutions and visionary thinking</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Who we are -->
+        <section class="section">
+            <h2 class="section-title">Who We Are</h2>
+            <p class="lead">Nexus Innovations is a global technology leader dedicated to transforming businesses through innovative digital solutions.</p>
+            <p>Founded in 2015, we've grown to become a trusted partner for Fortune 500 companies and startups alike, delivering exceptional value through our expertise in AI, cloud computing, and user experience design.</p>
+            
+            <h3>Our Core Values</h3>
+            <ul class="values">
+                <li>Innovation that matters</li>
+                <li>Client success above all</li>
+                <li>Ethical and responsible technology</li>
+                <li>Continuous learning and growth</li>
+            </ul>
+        </section>
+        
+        <!-- Mission -->
+        <section class="section" id="mission">
+            <h2 class="section-title">Our Mission</h2>
+            <p class="lead">To empower organizations with transformative technology solutions that drive growth, efficiency, and positive change.</p>
+            <p>We believe technology should serve humanity, and we're committed to creating solutions that make a meaningful difference in people's lives while advancing business objectives.</p>
+        </section>
+        
+        <!-- Team -->
+        <section class="section">
+            <h2 class="section-title">Leadership Team</h2>
+            <p>Our diverse leadership brings decades of experience from the world's leading tech companies.</p>
+            
+            <div class="team">
+                <article class="member">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Sarah Chen, CEO">
+                    <h3>Sarah Chen</h3>
+                    <small>Chief Executive Officer</small>
+                    <p>Former Google executive with 15+ years in tech leadership.</p>
+                </article>
+                
+                <article class="member">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Michael Rodriguez, CTO">
+                    <h3>Michael Rodriguez</h3>
+                    <small>Chief Technology Officer</small>
+                    <p>AI researcher and cloud infrastructure expert.</p>
+                </article>
+                
+                <article class="member">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Jessica Kim, CDO">
+                    <h3>Jessica Kim</h3>
+                    <small>Chief Design Officer</small>
+                    <p>Award-winning designer focused on human-centered experiences.</p>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Movies List -->
+        <section class="section movies-section">
+            <h2 class="section-title">Team Favorite Movies</h2>
+            <p>These are the films that inspire our team and reflect our creative spirit:</p>
+            
+            <ul class="movies">
+                <li>The Social Network</li>
+                <li class="favorite">Inception - Our collective favorite!</li>
+                <li>The Imitation Game</li>
+                <li>Ex Machina</li>
+                <li>Her</li>
+                <li>Interstellar</li>
+            </ul>
+        </section>
+        
+        <!-- Cities List -->
+        <section class="section">
+            <h2 class="section-title">Our Global Offices</h2>
+            <p>We're proud to have a presence in these innovative cities around the world:</p>
+            
+            <ol class="cities">
+                <li>San Francisco</li>
+                <li>New York</li>
+                <li>London</li>
+                <li>Tokyo</li>
+                <li>Berlin</li>
+                <li>Singapore</li>
+                <li>Toronto</li>
+                <li>Austin</li>
+            </ol>
+        </section>
+        
+        <!-- CTA -->
+        <section class="section">
+            <div class="cta">
+                <div class="cta-content">
+                    <h3>Ready to innovate together?</h3>
+                    <p>Let's discuss how our solutions can drive your business forward.</p>
+                </div>
+                <a href="#" class="btn">Get in touch <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Nexus Innovations. All rights reserved.</p>
+           
+        </div>
+    </footer>
+</body>
+</html>
