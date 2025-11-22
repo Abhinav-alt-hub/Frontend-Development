@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Filter</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 30px;
+    }
+
+    .container {
+      width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-right: 10px;
+      cursor: pointer;
+      border: none;
+      background: black;
+      color: white;
+      border-radius: 5px;
+    }
+
+    #search {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Interactive Product Filter</h2>
+
+    <button onclick="showProducts('all')">All</button>
+    <button onclick="showProducts('electronics')">Electronics</button>
+    <button onclick="showProducts('clothing')">Clothing</button>
+
+    <input type="text" id="search" placeholder="Search products..." onkeyup="applyFilters()">
+
+    <ul id="productList"></ul>
+  </div>
+
+  <script>
+
+    const products = [
+      { name: "Smartphone", category: "electronics" },
+      { name: "Laptop", category: "electronics" },
+      { name: "Headphones", category: "electronics" },
+      { name: "T-Shirt", category: "clothing" },
+      { name: "Jeans", category: "clothing" },
+      { name: "Jacket", category: "clothing" },
+      { name: "Novel Book", category: "books" },
+      { name: "Textbook", category: "books" },
+      { name: "Camera", category: "electronics" },
+      { name: "Sweater", category: "clothing" }
+    ];
+
+    let currentCategory = "all";
+
+    window.onload = function () {
+      displayProducts(products);
+    };
+
+    function showProducts(category) {
+      currentCategory = category;
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const keyword = document.getElementById("search").value.toLowerCase();
+
+      const filtered = products.filter(item => {
+        const matchCategory = (currentCategory === "all") || (item.category === currentCategory);
+        const matchSearch = item.name.toLowerCase().includes(keyword);
+        return matchCategory && matchSearch;
+      });
+
+      displayProducts(filtered);
+    }
+
+    function displayProducts(list) {
+      const ul = document.getElementById("productList");
+      ul.innerHTML = "";
+
+      if (list.length === 0) {
+        ul.innerHTML = "<li>No products found</li>";
+        return;
+      } 
+
+      list.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} (${item.category})`;
+        ul.appendChild(li);
+      });
+    }
+  </script>
+
+</body>
+</html>
