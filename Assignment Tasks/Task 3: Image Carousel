@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Carousel</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f3f3f3;
+    }
+
+    .carousel-container {
+      width: 500px;
+      height: 300px;
+      margin: auto;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    .carousel-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px 18px;
+      font-size: 16px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      opacity: 0.6;
+    }
+
+    #prevBtn {
+      left: 10px;
+    }
+
+    #nextBtn {
+      right: 10px;
+    }
+
+    .btn:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">Image Carousel</h2>
+
+  <div class="carousel-container" id="carousel">
+    <img id="slide" src="">
+    <button class="btn" id="prevBtn">❮ Prev</button>
+    <button class="btn" id="nextBtn">Next ❯</button>
+  </div>
+
+  <script>
+  
+    const images = [
+      "https://picsum.photos/id/1015/600/400",
+      "https://picsum.photos/id/1016/600/400",
+      "https://picsum.photos/id/1018/600/400",
+      "https://picsum.photos/id/1020/600/400",
+      "https://picsum.photos/id/1024/600/400"
+    ];
+
+    let index = 0;
+    const slide = document.getElementById("slide");
+
+    slide.src = images[index];
+
+    document.getElementById("nextBtn").onclick = function () {
+      index = (index + 1) % images.length;
+      slide.src = images[index];
+    };
+
+    document.getElementById("prevBtn").onclick = function () {
+      index = (index - 1 + images.length) % images.length;
+      slide.src = images[index];
+    };
+
+    let interval = setInterval(nextImage, 3000);
+
+    function nextImage() {
+      index = (index + 1) % images.length;
+      slide.src = images[index];
+    }
+
+    const carousel = document.getElementById("carousel");
+
+    carousel.addEventListener("mouseover", function () {
+      clearInterval(interval);
+    });
+
+    carousel.addEventListener("mouseout", function () {
+      interval = setInterval(nextImage, 3000);
+    });
+  </script>
+
+</body>
+</html>
