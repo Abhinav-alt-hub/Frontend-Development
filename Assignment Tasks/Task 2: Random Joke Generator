@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Joke Generator</title>
+
+  <style>
+    body {
+      background: #f3f3f3;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+
+    .container {
+      width: 450px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    #jokeBox {
+      margin: 20px 0;
+      font-size: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: gray;
+      cursor: not-allowed;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Random Joke Generator</h2>
+
+    <div id="jokeBox">
+      Click the button to load a joke!
+    </div>
+
+    <button id="jokeBtn">Next Joke</button>
+  </div>
+
+  <script>
+    const jokeBox = document.getElementById("jokeBox");
+    const jokeBtn = document.getElementById("jokeBtn");
+
+    function fetchJoke() {
+      jokeBtn.disabled = true;
+
+      fetch("https://official-joke-api.appspot.com/random_joke")
+        .then(response => response.json())
+        .then(data => {
+          jokeBox.innerHTML = `
+            <strong>${data.setup}</strong><br><br>
+            🔥 ${data.punchline}
+          `;
+          jokeBtn.disabled = false; 
+        })
+        .catch(error => {
+          jokeBox.innerHTML = "⚠️ Failed to load joke. Try again!";
+          jokeBtn.disabled = false; 
+        });
+    }
+    jokeBtn.addEventListener("click", fetchJoke);
+  </script>
+
+</body>
+</html>
