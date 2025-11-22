@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation App</title>
+
+  <style>
+    body {
+      background: #f3f3f3;
+      font-family: Arial;
+      padding: 40px;
+    }
+
+    .form-container {
+      width: 400px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      font-size: 18px;
+      margin-top: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .valid {
+      border-color: green !important;
+    }
+
+    .invalid {
+      border-color: red !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Registration Form</h2>
+
+    <form id="regForm">
+      <label>Name</label>
+      <input type="text" id="name">
+      <div class="error" id="nameError"></div>
+
+      <label>Email</label>
+      <input type="text" id="email">
+      <div class="error" id="emailError"></div>
+
+      <label>Password</label>
+      <input type="password" id="password">
+      <div class="error" id="passwordError"></div>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <div id="successMessage" class="success"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("regForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // prevent page reload
+
+      const name = document.getElementById("name");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+
+      const nameErr = document.getElementById("nameError");
+      const emailErr = document.getElementById("emailError");
+      const passErr = document.getElementById("passwordError");
+
+      let isValid = true;
+
+      nameErr.textContent = "";
+      emailErr.textContent = "";
+      passErr.textContent = "";
+      document.getElementById("successMessage").textContent = "";
+
+      if (name.value.trim() === "") {
+        nameErr.textContent = "Name is required";
+        name.classList.add("invalid");
+        name.classList.remove("valid");
+        isValid = false;
+      } else {
+        name.classList.add("valid");
+        name.classList.remove("invalid");
+      }
+
+      if (email.value.trim() === "") {
+        emailErr.textContent = "Email is required";
+        email.classList.add("invalid");
+        email.classList.remove("valid");
+        isValid = false;
+      } else if (!email.value.includes("@")) {
+        emailErr.textContent = "Email must include '@'";
+        email.classList.add("invalid");
+        email.classList.remove("valid");
+        isValid = false;
+      } else {
+        email.classList.add("valid");
+        email.classList.remove("invalid");
+      }
+
+      if (password.value === "") {
+        passErr.textContent = "Password is required";
+        password.classList.add("invalid");
+        password.classList.remove("valid");
+        isValid = false;
+      } else if (password.value.length < 8) {
+        passErr.textContent = "Password must be at least 8 characters";
+        password.classList.add("invalid");
+        password.classList.remove("valid");
+        isValid = false;
+      } else {
+        password.classList.add("valid");
+        password.classList.remove("invalid");
+      }
+
+      if (isValid) {
+        document.getElementById("successMessage").textContent = "Registration Successful!";
+      }
+    });
+  </script>
+
+</body>
+</html>
