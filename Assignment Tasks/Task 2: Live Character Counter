@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Character Counter</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 40px;
+    }
+
+    .container {
+      width: 450px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #counter {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 18px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Live Character Counter</h2>
+
+    <textarea id="textBox" placeholder="Start typing..."></textarea>
+
+    <div id="counter">Characters left: 100</div>
+  </div>
+
+  <script>
+    const textBox = document.getElementById("textBox");
+    const counter = document.getElementById("counter");
+    const limit = 100;
+
+    textBox.addEventListener("input", function () {
+      let textLength = textBox.value.length;
+
+      if (textLength > limit) {
+        textBox.value = textBox.value.substring(0, limit);
+        textLength = limit;
+      }
+
+      const remaining = limit - textLength;
+      counter.textContent = "Characters left: " + remaining;
+
+      if (remaining > 50) {
+        counter.style.color = "green";
+      } else if (remaining > 20) {
+        counter.style.color = "orange";
+      } else {
+        counter.style.color = "red";
+      }
+    });
+  </script>
+
+</body>
+</html>
