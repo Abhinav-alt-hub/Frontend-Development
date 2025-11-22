@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic To-Do List</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+
+    #todo-container {
+      width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    input {
+      width: 70%;
+      padding: 10px;
+    }
+
+    button {
+      padding: 10px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    ul {
+      margin-top: 20px;
+      padding-left: 0;
+    }
+
+    li {
+      background: #eee;
+      margin-bottom: 10px;
+      padding: 10px;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+    }
+
+    .btn {
+      margin-left: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .edit {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .delete {
+      background: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="todo-container">
+    <h2>Dynamic To-Do List</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter task...">
+    <button onclick="addTask()">Add Task</button>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    window.onload = function() {
+      if (localStorage.getItem("tasks")) {
+        document.getElementById("taskList").innerHTML = localStorage.getItem("tasks");
+        addEventListenersToButtons();
+      }
+    };
+
+    function addTask() {
+      const taskValue = document.getElementById("taskInput").value;
+
+      if (taskValue === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span>${taskValue}</span>
+        <div>
+          <button class="btn edit">Edit</button>
+          <button class="btn delete">Delete</button>
+        </div>
+      `;
+
+      document.getElementById("taskList").appendChild(li);
+      document.getElementById("taskInput").value = "";
+
+      saveTasks();   
+      addEventListenersToButtons();
+    }
+
+    function addEventListenersToButtons() {
+      document.querySelectorAll(".delete").forEach(btn => {
+        btn.onclick = function() {
+          this.parentNode.parentNode.remove();
+          saveTasks();
+        };
+      });
+
+      document.querySelectorAll(".edit").forEach(btn => {
+        btn.onclick = function() {
+          const li = this.parentNode.parentNode;
+          const oldText = li.querySelector("span").innerText;
+
+          const newText = prompt("Edit task:", oldText);
+          if (newText !== null && newText.trim() !== "") {
+            li.querySelector("span").innerText = newText;
+            saveTasks();
+          }
+        };
+      });
+    }
+
+    function saveTasks() {
+      localStorage.setItem("tasks", document.getElementById("taskList").innerHTML);
+    }
+  </script>
+
+</body>
+</html>
